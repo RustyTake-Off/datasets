@@ -2,12 +2,16 @@
 #    uv export --format requirements-txt --dev --no-hashes --output-file requirements-dev.txt
 appnope==0.1.4 ; platform_system == 'Darwin'
 asttokens==2.4.1
+beautifulsoup4==4.12.3
+certifi==2024.8.30
 cffi==1.17.1 ; implementation_name == 'pypy'
+charset-normalizer==3.3.2
 colorama==0.4.6 ; sys_platform == 'win32'
 comm==0.2.2
 debugpy==1.8.6
 decorator==5.1.1
 executing==2.1.0
+idna==3.10
 ipykernel==6.29.5
 ipython==8.28.0
 jedi==0.19.1
@@ -29,9 +33,12 @@ python-dateutil==2.9.0.post0
 pywin32==307 ; platform_python_implementation != 'PyPy' and sys_platform == 'win32'
 pyyaml==6.0.2
 pyzmq==26.2.0
+requests==2.32.3
 ruff==0.6.9
 six==1.16.0
+soupsieve==2.6
 stack-data==0.6.3
 tornado==6.4.1
 traitlets==5.14.3
+urllib3==2.2.3
 wcwidth==0.2.13
