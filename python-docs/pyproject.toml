@@ -1,0 +1,18 @@
+[project]
+name = "python-docs"
+version = "0.1.0"
+description = "Make datasets from python docs"
+readme = "README.md"
+requires-python = ">=3.12"
+
+dependencies = [
+    "beautifulsoup4>=4.12.3",
+    "pyyaml>=6.0.2",
+    "requests>=2.32.3",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ipykernel>=6.29.5",
+    "ruff>=0.6.9",
+]
