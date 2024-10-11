@@ -1,47 +1,10 @@
 from datetime import datetime, timedelta
-from typing import Any, Optional
+from typing import Any
 
 import requests
-import yaml
 from bs4 import BeautifulSoup
-
-# Load the YAML file
-versions_file = "versions.yaml"
-
-
-# Constants
-ONE_YEAR_DAYS = 365
-MAX_SKIP_COUNT = 6
-
-
-def load_versions(versions_file: str) -> dict[str, Any]:
-    """Load the version data from a YAML file"""
-    with open(versions_file, "r") as file:
-        return yaml.safe_load(file)
-
-
-def update_versions(versions_file: str, data: dict[str, Any]) -> None:
-    """Update the YAML file with formatted version numbers"""
-    formatted_versions = {
-        f"{int(major):02d}.{int(minor):02d}": details
-        for version, details in data["versions"].items()
-        for major, minor in [version.split(".")]
-    }
-
-    data["versions"] = formatted_versions
-
-    with open(versions_file, "w") as file:
-        yaml.dump(data, file, default_flow_style=False)
-
-
-def cleanup_date(last_updated: str) -> str:
-    """Clean the last updated date string and return ISO format"""
-    try:
-        date_str = last_updated.split("on: ")[1].split(" (")[0].strip().rstrip(".")
-        return datetime.strptime(date_str, "%b %d, %Y").date().isoformat()
-    except Exception as e:
-        print(f"Error cleaning last update date: {str(e)}")
-        return last_updated
+from constants import MAX_SKIP_COUNT, ONE_YEAR_DAYS, VERSIONS_FILE
+from helpers import cleanup_date, load_versions, update_versions
 
 
 def extract_python_doc_info(
@@ -53,7 +16,7 @@ def extract_python_doc_info(
     Fetches and extracts Python documentation details for a given version
 
     Args:
-        version (str): Python version (e.g., "3.9")
+        version (str): Python version
         url (str): URL of the documentation page
         details (dict[str, Any]): Metadata about the version
     """
@@ -79,12 +42,8 @@ def extract_python_doc_info(
             if last_update_date < one_year_ago:
                 details["skip"] += 1
                 print(
-                    f"Version {version} last updated on {last_updated}, skipping. Current counter {details['skip']}"
+                    f"Version {version} last updated on {last_updated}, skipping. Increasing counter to {details['skip']}"
                 )
-
-                if details["skip"] >= MAX_SKIP_COUNT:
-                    details["skip"] = True
-                    print(f"Skipping version {version} after {MAX_SKIP_COUNT} counts")
 
                 return {
                     "last_update": details["last_update"],
@@ -131,13 +90,9 @@ def extract_python_doc_info(
     except Exception as e:
         print(f"Error processing version {version}: {str(e)}")
         # Increment the skip counter if it's not already True
-        if details["skip"] is not True:
+        if details["skip"] < MAX_SKIP_COUNT:
             details["skip"] += 1
-
-        # Check if the skip counter reaches MAX_SKIP_COUNT
-        if details["skip"] >= MAX_SKIP_COUNT:
-            details["skip"] = True
-            print(f"Skipping version {version} after {MAX_SKIP_COUNT} counts")
+            print(f'Increasing skip counter to {details['skip']}')
 
         return {
             "last_update": details["last_update"],
@@ -147,15 +102,15 @@ def extract_python_doc_info(
 
 
 # Load the versions data from the YAML file
-data = load_versions(versions_file)
+data = load_versions(VERSIONS_FILE)
 
 for version, details in data["versions"].items():
     # Remove leading zeros from the version to construct the URL
     major, minor = version.split(".")
     clean_version = f"{int(major)}.{int(minor)}"
 
-    # Skip the version if skip is true
-    if details["skip"] is True:
+    # Skip version if skip counter reaches MAX_SKIP_COUNT
+    if details["skip"] >= MAX_SKIP_COUNT:
         print(f"Skipping version {clean_version}")
         continue
 
@@ -168,4 +123,4 @@ for version, details in data["versions"].items():
     details["specific"] = info["specific"]
 
 # Write the updated data back to the YAML file
-update_versions(versions_file, data)
+update_versions(VERSIONS_FILE, data)
