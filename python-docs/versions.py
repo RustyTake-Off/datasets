@@ -15,13 +15,13 @@ MAX_SKIP_COUNT = 6
 
 
 def load_versions(versions_file: str) -> dict[str, Any]:
-    """Load the version data from a YAML file."""
+    """Load the version data from a YAML file"""
     with open(versions_file, "r") as file:
         return yaml.safe_load(file)
 
 
 def update_versions(versions_file: str, data: dict[str, Any]) -> None:
-    """Update the YAML file with formatted version numbers."""
+    """Update the YAML file with formatted version numbers"""
     formatted_versions = {
         f"{int(major):02d}.{int(minor):02d}": details
         for version, details in data["versions"].items()
@@ -35,7 +35,7 @@ def update_versions(versions_file: str, data: dict[str, Any]) -> None:
 
 
 def cleanup_date(last_updated: str) -> str:
-    """Clean the last updated date string and return ISO format."""
+    """Clean the last updated date string and return ISO format"""
     try:
         date_str = last_updated.split("on: ")[1].split(" (")[0].strip().rstrip(".")
         return datetime.strptime(date_str, "%b %d, %Y").date().isoformat()
@@ -48,7 +48,15 @@ def extract_python_doc_info(
     version: str,
     url: str,
     details: dict[str, Any],
-) -> dict[str, Optional[str]]:
+) -> dict[str, str]:
+    """
+    Fetches and extracts Python documentation details for a given version
+
+    Args:
+        version (str): Python version (e.g., "3.9")
+        url (str): URL of the documentation page
+        details (dict[str, Any]): Metadata about the version
+    """
     try:
         response = requests.get(url)
         response.raise_for_status()
@@ -56,7 +64,6 @@ def extract_python_doc_info(
 
         # Extract the last update date
         p_tag = soup.find("p")
-        last_updated = None
 
         if p_tag is not None:
             b_tag = p_tag.find_next("b")
@@ -72,7 +79,7 @@ def extract_python_doc_info(
             if last_update_date < one_year_ago:
                 details["skip"] += 1
                 print(
-                    f"Version {version} last updated on {last_updated}, skipping. Current counter {details["skip"]}"
+                    f"Version {version} last updated on {last_updated}, skipping. Current counter {details['skip']}"
                 )
 
                 if details["skip"] >= MAX_SKIP_COUNT:
@@ -111,6 +118,10 @@ def extract_python_doc_info(
                 break
 
         details["skip"] = 0
+        print(
+            f"Done checking version {version}, resetting counter to {details['skip']}"
+        )
+
         return {
             "last_update": last_updated,
             "plain_text_link": plain_text_link,
