@@ -11,6 +11,7 @@ os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 versions: dict[str, dict] = load_versions(VERSIONS_FILE)["versions"]
 
+
 # Download versions or skip if MAX_SKIP_COUNT is reached
 for version, details in versions.items():
     if details["skip"] >= MAX_SKIP_COUNT:
@@ -31,6 +32,7 @@ for version, details in versions.items():
 
         except requests.RequestException as e:
             print(f"Failed to download {url}: {e}")
+
 
 # Extract downloaded versions
 for file_name in os.listdir(DOWNLOAD_DIR):
