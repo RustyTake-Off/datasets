@@ -1,87 +1,104 @@
 url: https://docs.python.org/{version}/download.html
 versions:
   '02.06':
+    last_checked: '2024-10-17'
     last_update: '2013-10-29'
     plain_text_link: http://docs.python.org/ftp/python/doc/2.6.9/python-2.6.9-docs-text.tar.bz2
-    skip: 0
+    skip: 2
     specific: 2.6.9
   '02.07':
+    last_checked: '2024-10-17'
     last_update: '2020-06-19'
     plain_text_link: https://docs.python.org/2.7/archives/python-2.7.18-docs-text.tar.bz2
-    skip: 0
+    skip: 2
     specific: 2.7.18
   '03.00':
+    last_checked: '2024-10-17'
     last_update: '2009-02-14'
     plain_text_link: http://docs.python.org/ftp/python/doc/3.0.1/python-3.0.1-docs-text.tar.bz2
-    skip: 0
+    skip: 2
     specific: 3.0.1
   '03.01':
+    last_checked: '2024-10-17'
     last_update: '2012-04-09'
     plain_text_link: http://docs.python.org/ftp/python/doc/3.1.5/python-3.1.5-docs-text.tar.bz2
-    skip: 0
+    skip: 2
     specific: 3.1.5
   '03.02':
+    last_checked: '2024-10-17'
     last_update: '2014-10-12'
     plain_text_link: http://docs.python.org/ftp/python/doc/3.2.6/python-3.2.6-docs-text.tar.bz2
-    skip: 0
+    skip: 2
     specific: 3.2.6
   '03.03':
+    last_checked: '2024-10-17'
     last_update: '2017-09-19'
     plain_text_link: http://docs.python.org/ftp/python/doc/3.3.7/python-3.3.7-docs-text.tar.bz2
-    skip: 0
+    skip: 2
     specific: 3.3.7
   '03.04':
+    last_checked: '2024-10-17'
     last_update: '2019-06-16'
     plain_text_link: https://docs.python.org/ftp/python/doc/3.4.10/python-3.4.10-docs-text.tar.bz2
-    skip: 0
+    skip: 2
     specific: 3.4.10
   '03.05':
+    last_checked: '2024-10-17'
     last_update: '2020-12-18'
     plain_text_link: https://docs.python.org/3.5/archives/python-3.5.9-docs-text.tar.bz2
-    skip: 0
+    skip: 2
     specific: 3.5.9
   '03.06':
+    last_checked: '2024-10-17'
     last_update: '2021-12-29'
     plain_text_link: https://docs.python.org/3.6/archives/python-3.6.15-docs-text.tar.bz2
-    skip: 0
+    skip: 2
     specific: 3.6.15
   '03.07':
+    last_checked: '2024-10-17'
     last_update: '2023-06-28'
     plain_text_link: https://docs.python.org/3.7/archives/python-3.7.17-docs-text.tar.bz2
-    skip: 0
+    skip: 2
     specific: 3.7.17
   '03.08':
+    last_checked: '2024-10-17'
     last_update: '2024-09-08'
     plain_text_link: https://docs.python.org/3.8/archives/python-3.8.20-docs-text.tar.bz2
     skip: 0
     specific: 3.8.20
   '03.09':
+    last_checked: '2024-10-17'
     last_update: '2024-09-09'
     plain_text_link: https://docs.python.org/3.9/archives/python-3.9.20-docs-text.tar.bz2
     skip: 0
     specific: 3.9.20
   '03.10':
+    last_checked: '2024-10-17'
     last_update: '2024-09-09'
     plain_text_link: https://docs.python.org/3.10/archives/python-3.10.15-docs-text.tar.bz2
     skip: 0
     specific: 3.10.15
   '03.11':
+    last_checked: '2024-10-17'
     last_update: '2024-09-10'
     plain_text_link: https://docs.python.org/3.11/archives/python-3.11.10-docs-text.tar.bz2
     skip: 0
     specific: 3.11.10
   '03.12':
-    last_update: '2024-10-11'
+    last_checked: '2024-10-17'
+    last_update: '2024-10-16'
     plain_text_link: https://docs.python.org/3.12/archives/python-3.12-docs-text.tar.bz2
     skip: 0
     specific: 3.12.7
   '03.13':
-    last_update: '2024-10-11'
+    last_checked: '2024-10-17'
+    last_update: '2024-10-16'
     plain_text_link: https://docs.python.org/3.13/archives/python-3.13-docs-text.tar.bz2
     skip: 0
     specific: 3.13.0
   '03.14':
-    last_update: '2024-10-11'
+    last_checked: '2024-10-17'
+    last_update: '2024-10-16'
     plain_text_link: https://docs.python.org/3.14/archives/python-3.14-docs-text.tar.bz2
     skip: 0
-    specific: 3.14.0a0
+    specific: 3.14.0a1
