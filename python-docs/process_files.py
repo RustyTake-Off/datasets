@@ -26,9 +26,9 @@ def extract_sections(file_path: str, separators: list) -> list:
             line = lines[i].strip()
             prev_line = lines[i - 1].strip()
 
-            # Check if the current line is a separator line (more than 3 symbols)
+            # Check if the current line is a separator line with more than 3 symbols
             if any(line.startswith(separator * 4) for separator in separators):
-                if current_title:  # If there's an existing title, store the section
+                if current_title:
                     sections.append(
                         {
                             "section_title": current_title,
@@ -37,13 +37,13 @@ def extract_sections(file_path: str, separators: list) -> list:
                         }
                     )
 
-                # Set the new section title and reset content
+                # Set new section title and reset content
                 current_title = prev_line
                 current_content = []
             else:
                 current_content.append(line)
 
-        # Handle the last section in the file
+        # Handle last section in the file
         if current_title:
             sections.append(
                 {
@@ -56,26 +56,32 @@ def extract_sections(file_path: str, separators: list) -> list:
     return sections
 
 
-def process_files() -> None:
+def process_files(extract_dir: str, output_dir: str, separators: list) -> None:
     """
-    Process all version directories in the EXTRACT_DIR and save the extracted
-    data to individual JSONL files in the OUTPUT_DIR for each version
+    Process all version directories in the extract_dir and save extracted
+    data to individual jsonl files in the output_dir for each version
     """
-    for version_dir in os.listdir(EXTRACT_DIR):
-        version_path = os.path.join(EXTRACT_DIR, version_dir)
+
+    # Ensure the output directory exists
+    os.makedirs(output_dir, exist_ok=True)
+
+    for version_dir in os.listdir(extract_dir):
+        version_path = os.path.join(extract_dir, version_dir)
+
         if os.path.isdir(version_path):
-            # Extract the version number
+            # Extract version number
             version_specific = version_dir.split("-")[1]
-            output_file = os.path.join(OUTPUT_DIR, f"py-{version_specific}.jsonl")
+            output_file = os.path.join(output_dir, f"py-{version_specific}.jsonl")
 
             with open(output_file, "w", encoding="utf-8") as file:
                 for root, _, files in os.walk(version_path):
                     for file_name in files:
                         file_path = os.path.join(root, file_name)
-                        sections = extract_sections(file_path, SEPARATORS)
+                        sections = extract_sections(file_path, separators)
+
                         for section in sections:
                             file.write(json.dumps(section) + "\n")
 
 
 if __name__ == "__main__":
-    process_files()
+    process_files(EXTRACT_DIR, OUTPUT_DIR, SEPARATORS)
