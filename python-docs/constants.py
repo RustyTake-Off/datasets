@@ -8,3 +8,4 @@ OUTPUT_DIR = "data"
 # Constants
 ONE_YEAR_DAYS = 365
 MAX_SKIP_COUNT = 5
+SEPARATORS = ["*", "=", "-"]
