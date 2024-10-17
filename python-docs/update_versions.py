@@ -2,9 +2,9 @@ from datetime import datetime, timedelta
 from typing import Any
 
 import requests
+import yaml
 from bs4 import BeautifulSoup
 from constants import MAX_SKIP_COUNT, ONE_YEAR_DAYS, VERSIONS_FILE
-from helpers import cleanup_date, load_versions, update_versions
 
 
 def extract_python_doc_info(
@@ -36,7 +36,17 @@ def extract_python_doc_info(
                 last_updated = b_tag.text.strip()
 
         if last_updated:
-            last_updated = cleanup_date(last_updated)
+            try:
+                date_str = (
+                    last_updated.split("on: ")[1].split(" (")[0].strip().rstrip(".")
+                )
+                last_updated = (
+                    datetime.strptime(date_str, "%b %d, %Y").date().isoformat()
+                )
+            except Exception as e:
+                print(f"Error cleaning last update date: {str(e)}")
+                last_updated = last_updated  # Return the original last_updated string if parsing fails
+
             last_update_date = datetime.fromisoformat(last_updated)
             one_year_ago = datetime.now() - timedelta(days=ONE_YEAR_DAYS)
             time_now = datetime.now().date().isoformat()
@@ -109,7 +119,8 @@ def extract_python_doc_info(
 
 if __name__ == "__main__":
     # Load versions data from the YAML file
-    data = load_versions(VERSIONS_FILE)
+    with open(VERSIONS_FILE, "r") as file:
+        data = yaml.safe_load(file)
 
     for version, details in data["versions"].items():
         # Remove leading zeros from the version
@@ -130,5 +141,14 @@ if __name__ == "__main__":
         details["plain_text_link"] = info["plain_text_link"]
         details["specific"] = info["specific"]
 
+    formatted_versions = {
+        f"{int(major):02d}.{int(minor):02d}": details
+        for version, details in data["versions"].items()
+        for major, minor in [version.split(".")]
+    }
+
+    data["versions"] = formatted_versions
+
     # Write updated data back to the YAML file
-    update_versions(VERSIONS_FILE, data)
+    with open(VERSIONS_FILE, "w") as file:
+        yaml.dump(data, file, default_flow_style=False)
