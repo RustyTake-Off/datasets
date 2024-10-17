@@ -2,8 +2,9 @@
 VERSIONS_FILE = "versions.yaml"
 DOWNLOAD_DIR = "downloads"
 EXTRACT_DIR = "extracted"
+OUTPUT_DIR = "data"
 
 
 # Constants
 ONE_YEAR_DAYS = 365
-MAX_SKIP_COUNT = 6
+MAX_SKIP_COUNT = 5
