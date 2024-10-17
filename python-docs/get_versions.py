@@ -2,14 +2,16 @@ import os
 import tarfile
 
 import requests
+import yaml
 from constants import DOWNLOAD_DIR, EXTRACT_DIR, MAX_SKIP_COUNT, VERSIONS_FILE
-from helpers import load_versions
 
-# Create the download directory if it doesn't exist
+# Load versions
+with open(VERSIONS_FILE, "r") as file:
+    versions: dict = yaml.safe_load(file)["versions"]
+
+
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
-
-
-versions: dict[str, dict] = load_versions(VERSIONS_FILE)["versions"]
+os.makedirs(EXTRACT_DIR, exist_ok=True)
 
 
 # Download versions or skip if MAX_SKIP_COUNT is reached
@@ -22,6 +24,7 @@ for version, details in versions.items():
     if url:
         file_name = os.path.join(DOWNLOAD_DIR, os.path.basename(url))
         print(f"Downloading {url} to {file_name}...")
+
         try:
             response = requests.get(url)
             response.raise_for_status()
@@ -38,9 +41,7 @@ for version, details in versions.items():
 for file_name in os.listdir(DOWNLOAD_DIR):
     if file_name.endswith(".tar.bz2"):
         file_path = os.path.join(DOWNLOAD_DIR, file_name)
-
         print(f"Extracting {file_path} to {EXTRACT_DIR}...")
-        os.makedirs(EXTRACT_DIR, exist_ok=True)
 
         try:
             with tarfile.open(file_path, "r:bz2") as tar:
