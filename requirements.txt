@@ -2,7 +2,7 @@
 #    uv export --format requirements-txt --no-dev --no-hashes --output-file requirements.txt
 beautifulsoup4==4.12.3
 certifi==2024.8.30
-charset-normalizer==3.3.2
+charset-normalizer==3.4.0
 idna==3.10
 pyyaml==6.0.2
 requests==2.32.3
