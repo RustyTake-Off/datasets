@@ -7,6 +7,15 @@ from constants import DOWNLOAD_DIR, EXTRACT_DIR, MAX_SKIP_COUNT, VERSIONS_FILE
 
 
 def download_versions(versions_file: str, download_dir: str, max_skip_count: int):
+    """
+    Download versions
+
+    Args:
+        versions_file (str): Version file
+        download_dir (str): Download directory
+        max_skip_count (int): Maximum skip count
+    """
+
     with open(versions_file, "r") as file:
         versions: dict = yaml.safe_load(file)["versions"]
 
@@ -36,6 +45,14 @@ def download_versions(versions_file: str, download_dir: str, max_skip_count: int
 
 
 def extract_versions(extract_dir: str, download_dir: str):
+    """
+    Extract versions
+
+    Args:
+        extract_dir (str): Extracted files directory
+        download_dir (str): Download directory
+    """
+
     os.makedirs(extract_dir, exist_ok=True)
 
     # Extract downloaded versions

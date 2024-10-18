@@ -6,13 +6,14 @@ from constants import EXTRACT_DIR, OUTPUT_DIR, SEPARATORS
 
 def extract_sections(file_path: str, separators: list) -> list:
     """
-    Extract sections
+    Extract sections data
 
     Args:
-        file_path (str): File to extract sections from
+        file_path (str): File path
+        separators (list): Separators e.g.: ["*", "="]
 
     Returns:
-        list: Sections
+        list: Extracted sections
     """
 
     sections = []
