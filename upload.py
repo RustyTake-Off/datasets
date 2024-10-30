@@ -8,7 +8,6 @@ from huggingface_hub import HfApi
 def upload_data_to_hf(
     search_term: str,
     repo_id: str,
-    repo_type: str,
     token: str,
 ):
     """
@@ -17,7 +16,6 @@ def upload_data_to_hf(
     Args:
         search_term (str): Docs directory
         repo_id (str): Repository id e.g.: 'example-org/example-repo'
-        repo_type (str): Repository type
         token (str): Hugging Face token
     """
 
@@ -39,7 +37,7 @@ def upload_data_to_hf(
         commit_message=f"Upload {search_term} | {datetime.now().date()}",
         folder_path=target_folder,
         repo_id=repo_id,
-        repo_type=repo_type,
+        repo_type="dataset",
         path_in_repo=path_in_repo,
     )
 
@@ -48,7 +46,7 @@ def upload_data_to_hf(
         path_in_repo="/README.md",
         path_or_fileobj="hf/README.md",
         repo_id=repo_id,
-        repo_type=repo_type,
+        repo_type="dataset",
     )
 
     versions_file = os.path.join(base, search_term, "versions.yaml")
@@ -58,14 +56,14 @@ def upload_data_to_hf(
             path_in_repo=f"{path_in_repo}/versions.yaml",
             path_or_fileobj=versions_file,
             repo_id=repo_id,
-            repo_type=repo_type,
+            repo_type="dataset",
         )
 
 
 if __name__ == "__main__":
     # Set up command-line argument parsing
     parser = argparse.ArgumentParser(
-        description="Upload documentation data to HuggingFace Hub",
+        description="Upload docs data to HuggingFace Hub",
     )
     parser.add_argument(
         "search_term",
@@ -78,16 +76,10 @@ if __name__ == "__main__":
         help="Repository id e.g.: 'example-org/example-repo'",
     )
     parser.add_argument(
-        "repo_type",
-        type=str,
-        help="Repository type",
-    )
-    parser.add_argument(
         "--token",
         type=str,
         help="Hugging Face token",
     )
-
     args = parser.parse_args()
 
     token = args.token or os.getenv("HF_TOKEN")
@@ -99,6 +91,5 @@ if __name__ == "__main__":
     upload_data_to_hf(
         search_term=args.search_term,
         repo_id=args.repo_id,
-        repo_type=args.repo_type,
         token=str(token),
     )
