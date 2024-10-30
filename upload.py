@@ -11,7 +11,7 @@ def upload_data_to_hf(
     search_term: str,
     repo_id: str,
     token: str,
-):
+) -> None:
     """
     Upload data files from specified docs directory
 
