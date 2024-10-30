@@ -9,8 +9,6 @@ language:
 tags:
 - code
 pretty_name: Lang Docs
-size_categories:
-- 10K<n<100K
 ---
 
 # lang-docs
