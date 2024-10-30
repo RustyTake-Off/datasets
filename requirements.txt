@@ -9,6 +9,7 @@ fsspec==2024.10.0
 huggingface-hub==0.26.2
 idna==3.10
 packaging==24.1
+python-dotenv==1.0.1
 pyyaml==6.0.2
 requests==2.32.3
 soupsieve==2.6
