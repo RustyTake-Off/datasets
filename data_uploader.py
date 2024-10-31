@@ -7,8 +7,8 @@ from huggingface_hub import CommitOperationAdd, HfApi
 from huggingface_hub.utils import GatedRepoError, RepositoryNotFoundError
 
 
-def upload_data_to_hf(
-    search_term: str,
+def _upload_data_to_hf(
+    lang: str,
     repo_id: str,
     token: str,
 ) -> None:
@@ -16,18 +16,18 @@ def upload_data_to_hf(
     Upload data files from specified docs directory
 
     Args:
-        search_term (str): Docs directory e.g.: 'python', 'javascript'
-        repo_id (str): Repository id e.g.: 'example-org/example-repo'
-        token (str): Hugging Face token with user write access to repositories and prs
+        lang (str): Docs directory containing dataset files (e.g. 'python', 'javascript')
+        repo_id (str): HuggingFace repository id (e.g. 'example-org/example-repo')
+        token (str): HuggingFace token with user write access to repositories and prs
     """
 
     base = os.curdir
-    search_term = f"{search_term}-docs"
-    target_folder = os.path.join(base, search_term, "data")
-    path_in_repo = f"data/{search_term}"
+    lang = f"{lang}-docs"
+    target_folder = os.path.join(base, lang, "data")
+    path_in_repo = f"data/{lang}"
 
     if not os.path.exists(target_folder):
-        raise FileNotFoundError(f"Folder does not exist: {target_folder}")
+        raise FileNotFoundError(f"'{target_folder}' does not exist")
 
     try:
         client = HfApi(token=token)
@@ -52,7 +52,7 @@ def upload_data_to_hf(
                 )
             )
 
-    versions_file = os.path.join(base, search_term, "versions.yaml")
+    versions_file = os.path.join(base, lang, "versions.yaml")
     if os.path.exists(versions_file):
         operations.append(
             CommitOperationAdd(
@@ -71,7 +71,7 @@ def upload_data_to_hf(
         )
 
     client.create_commit(
-        commit_message=f"Update {search_term} | {datetime.now().date()}",
+        commit_message=f"Update {lang} | {datetime.now().date()}",
         operations=operations,
         repo_id=repo_id,
         repo_type="dataset",
@@ -80,25 +80,24 @@ def upload_data_to_hf(
     )
 
 
-if __name__ == "__main__":
-    # Set up command-line argument parsing
+def data_uploader() -> None:
     parser = argparse.ArgumentParser(
         description="Upload docs data to HuggingFace Hub",
     )
     parser.add_argument(
-        "search_term",
+        "lang",
         type=str,
-        help="The term to search for",
+        help="Docs directory containing dataset files (e.g., 'python', 'javascript')",
     )
     parser.add_argument(
         "repo_id",
         type=str,
-        help="Repository id e.g.: 'example-org/example-repo'",
+        help="HuggingFace repository id (e.g. 'example-org/example-repo')",
     )
     parser.add_argument(
         "--token",
         type=str,
-        help="Hugging Face token",
+        help="HuggingFace token with user write access to repositories and prs",
     )
     args = parser.parse_args()
 
@@ -116,8 +115,12 @@ if __name__ == "__main__":
                 "HuggingFace token is required either as an argument --token or an environment variable HF_TOKEN"
             )
 
-    upload_data_to_hf(
-        search_term=args.search_term,
+    _upload_data_to_hf(
+        lang=args.lang,
         repo_id=args.repo_id,
         token=str(token),
     )
+
+
+if __name__ == "__main__":
+    data_uploader()
