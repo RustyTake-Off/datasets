@@ -9,7 +9,7 @@ def main():
     config = DocsConfig()
 
     # Update versions
-    # update_versions(config)
+    update_versions(config)
 
     # Download and extract docs
     download_and_extract(config)
