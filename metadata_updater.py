@@ -1,13 +1,13 @@
 import argparse
 import os
 from datetime import datetime
-from typing import Any
+from itertools import chain
 
-from huggingface_hub import HfApi, metadata_update
+from huggingface_hub import HfApi, dataset_info, metadata_update
 from huggingface_hub.utils import GatedRepoError, RepositoryNotFoundError
 
 
-def _generate_configs() -> dict[str, Any]:
+def _generate_configs() -> list:
     """Generate dataset configurations from the versions in the specified directory"""
 
     lang_docs = []
@@ -55,17 +55,19 @@ def _generate_configs() -> dict[str, Any]:
         }
         configs.append(general_config)
 
-    configs.sort(key=lambda x: x["data_files"][0]["path"])
-
-    return {"configs": configs}
+    return configs
 
 
-def _save_and_update_metadata(hf_directory: str, repo_id: str, token: str) -> None:
+def _save_and_update_metadata(
+    repo_id: str,
+    token: str,
+    hf_directory: str = "hf",
+) -> None:
     """
     Save and update metadata on HuggingFace
 
     Args:
-        hf_directory (_type_): Directory for HuggingFace files (e.g., 'hf')
+        hf_directory (str): Directory for HuggingFace files (e.g., 'hf')
         repo_id (str): HuggingFace repository id (e.g. 'example-org/example-repo')
         token (str): HuggingFace token with user write access to repositories and prs
     """
@@ -82,7 +84,25 @@ def _save_and_update_metadata(hf_directory: str, repo_id: str, token: str) -> No
     except RepositoryNotFoundError:
         print("The repository was not found or you do not have access")
 
-    config_dict = _generate_configs()
+    # Generate configs
+    generated_configs = _generate_configs()
+
+    # Load configs from HuggingFace
+    current_configs = dataset_info(
+        repo_id=repo_id,
+        token=token,
+    ).cardData.to_dict()
+
+    if "configs" not in current_configs:
+        current_configs["configs"] = []
+
+    new_configs = list(
+        {
+            item["config_name"]: item
+            for item in chain(generated_configs, current_configs["configs"])
+        }.values()
+    )
+    new_configs.sort(key=lambda x: x["data_files"][0]["path"])
 
     # Save the config to a local markdown file
     # from huggingface_hub import metadata_save
@@ -91,12 +111,10 @@ def _save_and_update_metadata(hf_directory: str, repo_id: str, token: str) -> No
     # metadata_save(local_path=local_path, data=config_dict)
 
     # Update metadata on HuggingFace
-    commit_message = (
-        f"Update readme with lang docs config names | {datetime.now().date()}"
-    )
     metadata_update(
-        commit_message=commit_message,
-        metadata=config_dict,
+        commit_message=f"Update readme | {datetime.now().date()}",
+        commit_description="Update readme with lang docs config names",
+        metadata={"configs": new_configs},
         repo_id=repo_id,
         repo_type="dataset",
         token=token,
@@ -110,7 +128,7 @@ def metadata_updater() -> None:
         description="Generate and update HuggingFace metadata for dataset configs",
     )
     parser.add_argument(
-        "--repo_id",
+        "repo_id",
         type=str,
         help="HuggingFace repository id (e.g. 'example-org/example-repo')",
     )
