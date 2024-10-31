@@ -101,6 +101,7 @@ def data_uploader() -> None:
     )
     args = parser.parse_args()
 
+    # Handle token retrieval
     token = args.token
     if token is None or token == "":
         from dotenv import load_dotenv
