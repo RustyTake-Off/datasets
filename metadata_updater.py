@@ -112,7 +112,6 @@ def metadata_updater() -> None:
     parser.add_argument(
         "--repo_id",
         type=str,
-        default="RustyTake-Off/misc",
         help="HuggingFace repository id (e.g. 'example-org/example-repo')",
     )
     parser.add_argument(
