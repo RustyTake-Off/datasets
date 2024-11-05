@@ -33,8 +33,8 @@ def _generate_configs(repo_id: str, token: str) -> list:
     for version in versions:
         # Parse language and version
         version = version.replace(".jsonl", "")
-        lang_docs = version.split("/")[-1].split("-")[0]
-        lang = version.split("/")[1].split("-")[0]
+        lang_docs = version.split("/")[1]
+        lang = version.split("/")[-1].split("-")[0]
         version = version.split("/")[-1].split("-")[1]
 
         # Clean up version format
@@ -43,18 +43,18 @@ def _generate_configs(repo_id: str, token: str) -> list:
         # Config entry for each version
         configs.append(
             {
-                "config_name": f"{lang_docs}-{cleaned_version}",
+                "config_name": f"{lang}-{cleaned_version}",
                 "data_files": [
                     {
                         "split": "train",
-                        "path": f"data/{lang}-docs/{lang_docs}-{version}.*",
+                        "path": f"data/{lang_docs}/{lang}-{version}.*",
                     }
                 ],
             }
         )
 
     # Add general config entry for each unique language
-    unique_langs = set(version.split("/")[1].split("-")[0] for version in versions)
+    unique_langs = set(version.split("/")[1] for version in versions)
     for lang_docs in unique_langs:
         configs.append(
             {
@@ -62,7 +62,7 @@ def _generate_configs(repo_id: str, token: str) -> list:
                 "data_files": [
                     {
                         "split": "train",
-                        "path": f"data/{lang_docs}-docs",
+                        "path": f"data/{lang_docs}",
                     }
                 ],
             }

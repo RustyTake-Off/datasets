@@ -19,7 +19,7 @@ def _upload_data_to_hf(lang: str, repo_id: str, token: str) -> None:
         token (str): HuggingFace token with user write access to repositories and PRs
     """
 
-    base = os.curdir
+    base = os.path.join(os.getcwd(), "src")
     lang = f"{lang}_docs"
     target_folder = os.path.join(base, lang, "data")
     path_in_repo = f"data/{lang}"
