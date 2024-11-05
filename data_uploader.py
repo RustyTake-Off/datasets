@@ -6,19 +6,17 @@ from datetime import datetime
 from huggingface_hub import CommitOperationAdd, HfApi
 from huggingface_hub.utils import GatedRepoError, RepositoryNotFoundError
 
+from utils import _get_huggingface_token
 
-def _upload_data_to_hf(
-    lang: str,
-    repo_id: str,
-    token: str,
-) -> None:
+
+def _upload_data_to_hf(lang: str, repo_id: str, token: str) -> None:
     """
     Upload data files from specified docs directory
 
     Args:
         lang (str): Docs directory containing dataset files (e.g. 'python', 'javascript')
         repo_id (str): HuggingFace repository id (e.g. 'example-org/example-repo')
-        token (str): HuggingFace token with user write access to repositories and prs
+        token (str): HuggingFace token with user write access to repositories and PRs
     """
 
     base = os.curdir
@@ -29,29 +27,24 @@ def _upload_data_to_hf(
     if not os.path.exists(target_folder):
         raise FileNotFoundError(f"'{target_folder}' does not exist")
 
+    client = HfApi(token=token)
     try:
-        client = HfApi(token=token)
-        client.auth_check(
-            repo_id=repo_id,
-            repo_type="dataset",
-            token=client.token,
+        client.auth_check(repo_id=repo_id, repo_type="dataset", token=token)
+    except (GatedRepoError, RepositoryNotFoundError) as e:
+        print(f"Repository access error: {e}")
+        return
+
+    # Collect files for commit
+    operations = [
+        CommitOperationAdd(
+            path_in_repo=f"{path_in_repo}/{os.path.relpath(file_path, target_folder)}",
+            path_or_fileobj=file_path,
         )
-    except GatedRepoError:
-        print("You do not have permission to access this gated repository")
-    except RepositoryNotFoundError:
-        print("The repository was not found or you do not have access")
+        for file_path in glob.glob(os.path.join(target_folder, "**"), recursive=True)
+        if os.path.isfile(file_path)
+    ]
 
-    operations = []
-    for file_path in glob.glob(os.path.join(target_folder, "**"), recursive=True):
-        if os.path.isfile(file_path):
-            relative_path = os.path.relpath(file_path, target_folder)
-            operations.append(
-                CommitOperationAdd(
-                    path_in_repo=f"{path_in_repo}/{relative_path}",
-                    path_or_fileobj=file_path,
-                )
-            )
-
+    # Add versions.yaml if it exists
     versions_file = os.path.join(base, lang, "versions.yaml")
     if os.path.exists(versions_file):
         operations.append(
@@ -61,6 +54,7 @@ def _upload_data_to_hf(
             )
         )
 
+    # Commit to HuggingFace
     client.create_commit(
         commit_message=f"Update {lang} | {datetime.now().date()}",
         operations=operations,
@@ -93,24 +87,11 @@ def data_uploader() -> None:
     args = parser.parse_args()
 
     # Handle token retrieval
-    token = args.token
-    if token is None or token == "":
-        from dotenv import load_dotenv
-
-        load_dotenv()
-        token = os.getenv("HF_TOKEN")
-
-        if token:
-            print("Using token from environment variables")
-        else:
-            raise ValueError(
-                "HuggingFace token is required either as an argument --token or an environment variable HF_TOKEN"
-            )
-
+    token = _get_huggingface_token(args.token)
     _upload_data_to_hf(
         lang=args.lang,
         repo_id=args.repo_id,
-        token=str(token),
+        token=token,
     )
 
 
