@@ -1,27 +1,287 @@
 url: https://www.gnu.org/software/{version}/manual/
 versions:
+  alive:
+    last_checked: '2024-11-05'
+    last_update: '2022-01-02'
+    plain_text_link: https://www.gnu.org/software/alive/manual/alive.info.tar.gz
+    specific: alive
+  anubis:
+    last_checked: '2024-11-05'
+    last_update: '2024-01-06'
+    plain_text_link: https://www.gnu.org/software/anubis/manual/anubis.info.tar.gz
+    specific: anubis
+  autoconf:
+    last_checked: '2024-11-05'
+    last_update: '2024-01-02'
+    plain_text_link: https://www.gnu.org/software/autoconf/manual/autoconf.info.tar.gz
+    specific: autoconf
+  autogen:
+    last_checked: '2024-11-05'
+    last_update: '2015-08-21'
+    plain_text_link: https://www.gnu.org/software/autogen/manual/autogen.info.tar.gz
+    specific: autogen
+  automake:
+    last_checked: '2024-11-05'
+    last_update: '2024-07-14'
+    plain_text_link: https://www.gnu.org/software/automake/manual/automake.info.tar.gz
+    specific: automake
   bash:
     last_checked: '2024-11-05'
     last_update: '2022-09-26'
     plain_text_link: https://www.gnu.org/software/bash/manual/bash.info.tar.gz
     specific: bash
+  c-intro-and-ref:
+    last_checked: '2024-11-05'
+    last_update: '2023-10-15'
+    plain_text_link: https://www.gnu.org/software/c-intro-and-ref/manual/c-intro-and-ref.info.tar.gz
+    specific: c-intro-and-ref
+  cflow:
+    last_checked: '2024-11-05'
+    last_update: '2021-12-30'
+    plain_text_link: https://www.gnu.org/software/cflow/manual/cflow.info.tar.gz
+    specific: cflow
+  chess:
+    last_checked: '2024-11-05'
+    last_update: '2021-05-09'
+    plain_text_link: https://www.gnu.org/software/chess/manual/gnuchess.info.tar.gz
+    specific: chess
+  combine:
+    last_checked: '2024-11-05'
+    last_update: '2013-07-28'
+    plain_text_link: https://www.gnu.org/software/combine/manual/combine.info.tar.gz
+    specific: combine
+  complexity:
+    last_checked: '2024-11-05'
+    last_update: '2011-05-15'
+    plain_text_link: https://www.gnu.org/software/complexity/manual/complexity.info.tar.gz
+    specific: complexity
   coreutils:
     last_checked: '2024-11-05'
     last_update: '2024-03-28'
     plain_text_link: https://www.gnu.org/software/coreutils/manual/coreutils.info.tar.gz
     specific: coreutils
+  cpio:
+    last_checked: '2024-11-05'
+    last_update: '2023-05-01'
+    plain_text_link: https://www.gnu.org/software/cpio/manual/cpio.info.tar.gz
+    specific: cpio
+  diffutils:
+    last_checked: '2024-11-05'
+    last_update: '2023-05-21'
+    plain_text_link: https://www.gnu.org/software/diffutils/manual/diffutils.info.tar.gz
+    specific: diffutils
+  gama:
+    last_checked: '2024-11-05'
+    last_update: '2024-02-17'
+    plain_text_link: https://www.gnu.org/software/gama/manual/gama.info.tar.gz
+    specific: gama
   gawk:
     last_checked: '2024-11-05'
     last_update: '2024-09-22'
     plain_text_link: https://www.gnu.org/software/gawk/manual/gawk.info.tar.gz
     specific: gawk
+  gettext:
+    last_checked: '2024-11-05'
+    last_update: '2023-06-17'
+    plain_text_link: https://www.gnu.org/software/gettext/manual/gettext.info.tar.gz
+    specific: gettext
+  gnuit:
+    last_checked: '2024-11-05'
+    last_update: '2009-03-01'
+    plain_text_link: https://www.gnu.org/software/gnuit/manual/gnuit.info.tar.gz
+    specific: gnuit
+  gnulib:
+    last_checked: '2024-11-05'
+    last_update: '2024-07-01'
+    plain_text_link: https://www.gnu.org/software/gnulib/manual/gnulib.info.tar.gz
+    specific: gnulib
+  gperf:
+    last_checked: '2024-11-05'
+    last_update: '2012-05-05'
+    plain_text_link: https://www.gnu.org/software/gperf/manual/gperf.info.tar.gz
+    specific: gperf
+  grep:
+    last_checked: '2024-11-05'
+    last_update: '2023-05-13'
+    plain_text_link: https://www.gnu.org/software/grep/manual/grep.info.tar.gz
+    specific: grep
+  gsasl:
+    last_checked: '2024-11-05'
+    last_update: '2024-01-02'
+    plain_text_link: https://www.gnu.org/software/gsasl/manual/gsasl.info.tar.gz
+    specific: gsasl
+  gsrc:
+    last_checked: '2024-11-05'
+    last_update: '2016-03-21'
+    plain_text_link: https://www.gnu.org/software/gsrc/manual/gsrc.info.tar.gz
+    specific: gsrc
+  guile:
+    last_checked: '2024-11-05'
+    last_update: '2024-06-24'
+    plain_text_link: https://www.gnu.org/software/guile/manual/guile.info.tar.gz
+    specific: guile
+  guile-ncurses:
+    last_checked: '2024-11-05'
+    last_update: '2017-04-08'
+    plain_text_link: https://www.gnu.org/software/guile-ncurses/manual/guile-ncurses.info.tar.gz
+    specific: guile-ncurses
+  guile-rpc:
+    last_checked: '2024-11-05'
+    last_update: '2014-05-21'
+    plain_text_link: https://www.gnu.org/software/guile-rpc/manual/guile-rpc.info.tar.gz
+    specific: guile-rpc
+  gv:
+    last_checked: '2024-11-05'
+    last_update: '2020-08-13'
+    plain_text_link: https://www.gnu.org/software/gv/manual/gv.info.tar.gz
+    specific: gv
+  gzip:
+    last_checked: '2024-11-05'
+    last_update: '2023-08-19'
+    plain_text_link: https://www.gnu.org/software/gzip/manual/gzip.info.tar.gz
+    specific: gzip
+  hello:
+    last_checked: '2024-11-05'
+    last_update: '2022-01-31'
+    plain_text_link: https://www.gnu.org/software/hello/manual/hello.info.tar.gz
+    specific: hello
+  idutils:
+    last_checked: '2024-11-05'
+    last_update: '2012-02-03'
+    plain_text_link: https://www.gnu.org/software/idutils/manual/idutils.info.tar.gz
+    specific: idutils
+  inetutils:
+    last_checked: '2024-11-05'
+    last_update: '2023-12-29'
+    plain_text_link: https://www.gnu.org/software/inetutils/manual/inetutils.info.tar.gz
+    specific: inetutils
+  libidn:
+    last_checked: '2024-11-05'
+    last_update: '2024-01-13'
+    plain_text_link: https://www.gnu.org/software/libidn/manual/libidn.info.tar.gz
+    specific: libidn
+  libmicrohttpd:
+    last_checked: '2024-11-05'
+    last_update: '2020-07-28'
+    plain_text_link: https://www.gnu.org/software/libmicrohttpd/manual/libmicrohttpd.info.tar.gz
+    specific: libmicrohttpd
+  librejs:
+    last_checked: '2024-11-05'
+    last_update: '2024-02-03'
+    plain_text_link: https://www.gnu.org/software/librejs/manual/librejs.info.tar.gz
+    specific: librejs
+  libtasn1:
+    last_checked: '2024-11-05'
+    last_update: '2022-08-23'
+    plain_text_link: https://www.gnu.org/software/libtasn1/manual/libtasn1.info.tar.gz
+    specific: libtasn1
+  libtool:
+    last_checked: '2024-11-05'
+    last_update: '2024-09-25'
+    plain_text_link: https://www.gnu.org/software/libtool/manual/libtool.info.tar.gz
+    specific: libtool
+  libunistring:
+    last_checked: '2024-11-05'
+    last_update: '2024-10-16'
+    plain_text_link: https://www.gnu.org/software/libunistring/manual/libunistring.info.tar.gz
+    specific: libunistring
+  lightning:
+    last_checked: '2024-11-05'
+    last_update: '2024-02-08'
+    plain_text_link: https://www.gnu.org/software/lightning/manual/lightning.info.tar.gz
+    specific: lightning
+  liquidwar6:
+    last_checked: '2024-11-05'
+    last_update: '2015-05-07'
+    plain_text_link: https://www.gnu.org/software/liquidwar6/manual/liquidwar6.info.tar.gz
+    specific: liquidwar6
+  m4:
+    last_checked: '2024-11-05'
+    last_update: '2021-05-29'
+    plain_text_link: https://www.gnu.org/software/m4/manual/m4.info.tar.gz
+    specific: m4
   make:
     last_checked: '2024-11-05'
     last_update: '2023-02-26'
     plain_text_link: https://www.gnu.org/software/make/manual/make.info.tar.gz
     specific: make
+  mes:
+    last_checked: '2024-11-05'
+    last_update: '2024-07-06'
+    plain_text_link: https://www.gnu.org/software/mes/manual/mes.info.tar.gz
+    specific: mes
+  orgadoc:
+    last_checked: '2024-11-05'
+    last_update: '2018-11-23'
+    plain_text_link: https://www.gnu.org/software/orgadoc/manual/orgadoc.info.tar.gz
+    specific: orgadoc
+  parted:
+    last_checked: '2024-11-05'
+    last_update: '2023-12-18'
+    plain_text_link: https://www.gnu.org/software/parted/manual/parted.info.tar.gz
+    specific: parted
+  proxyknife:
+    last_checked: '2024-11-05'
+    last_update: '2007-09-24'
+    plain_text_link: https://www.gnu.org/software/proxyknife/manual/proxyknife.info.tar.gz
+    specific: proxyknife
+  rcs:
+    last_checked: '2024-11-05'
+    last_update: '2022-02-02'
+    plain_text_link: https://www.gnu.org/software/rcs/manual/rcs.info.tar.gz
+    specific: rcs
+  recutils:
+    last_checked: '2024-11-05'
+    last_update: '2024-09-23'
+    plain_text_link: https://www.gnu.org/software/recutils/manual/recutils.info.tar.gz
+    specific: recutils
   sed:
     last_checked: '2024-11-05'
     last_update: '2020-01-14'
     plain_text_link: https://www.gnu.org/software/sed/manual/sed.info.tar.gz
     specific: sed
+  serveez:
+    last_checked: '2024-11-05'
+    last_update: '2021-12-14'
+    plain_text_link: https://www.gnu.org/software/serveez/manual/serveez.info.tar.gz
+    specific: serveez
+  sharutils:
+    last_checked: '2024-11-05'
+    last_update: '2013-01-07'
+    plain_text_link: https://www.gnu.org/software/sharutils/manual/sharutils.info.tar.gz
+    specific: sharutils
+  sqltutor:
+    last_checked: '2024-11-05'
+    last_update: '2018-01-18'
+    plain_text_link: https://www.gnu.org/software/sqltutor/manual/sqltutor.info.tar.gz
+    specific: sqltutor
+  tar:
+    last_checked: '2024-11-05'
+    last_update: '2023-08-23'
+    plain_text_link: https://www.gnu.org/software/tar/manual/tar.info.tar.gz
+    specific: tar
+  teseq:
+    last_checked: '2024-11-05'
+    last_update: '2015-08-14'
+    plain_text_link: https://www.gnu.org/software/teseq/manual/teseq.info.tar.gz
+    specific: teseq
+  units:
+    last_checked: '2024-11-05'
+    last_update: '2024-02-20'
+    plain_text_link: https://www.gnu.org/software/units/manual/units.info.tar.gz
+    specific: units
+  vc-dwim:
+    last_checked: '2024-11-05'
+    last_update: '2020-10-15'
+    plain_text_link: https://www.gnu.org/software/vc-dwim/manual/vc-dwim.info.tar.gz
+    specific: vc-dwim
+  wdiff:
+    last_checked: '2024-11-05'
+    last_update: '2014-04-14'
+    plain_text_link: https://www.gnu.org/software/wdiff/manual/wdiff.info.tar.gz
+    specific: wdiff
+  wget:
+    last_checked: '2024-11-05'
+    last_update: '2024-03-11'
+    plain_text_link: https://www.gnu.org/software/wget/manual/wget.info.tar.gz
+    specific: wget
