@@ -61,15 +61,6 @@ def _upload_data_to_hf(
             )
         )
 
-    readme_file = os.path.join(base, "hf", "README.md")
-    if os.path.exists(versions_file):
-        operations.append(
-            CommitOperationAdd(
-                path_in_repo="/README.md",
-                path_or_fileobj=readme_file,
-            )
-        )
-
     client.create_commit(
         commit_message=f"Update {lang} | {datetime.now().date()}",
         operations=operations,
