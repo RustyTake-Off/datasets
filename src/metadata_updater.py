@@ -38,12 +38,12 @@ def _generate_configs(repo_id: str, token: str) -> list:
         version = version.split("/")[-1].split("-")[1]
 
         # Clean up version format
-        cleaned_version = ".".join([str(int(part)) for part in version.split(".")])
+        # cleaned_version = ".".join([str(int(part)) for part in version.split(".")])
 
         # Config entry for each version
         configs.append(
             {
-                "config_name": f"{lang}-{cleaned_version}",
+                "config_name": f"{lang}-{version}",
                 "data_files": [
                     {
                         "split": "train",
@@ -62,7 +62,7 @@ def _generate_configs(repo_id: str, token: str) -> list:
                 "data_files": [
                     {
                         "split": "train",
-                        "path": f"data/{lang_docs}",
+                        "path": f"data/{lang_docs}/*",
                     }
                 ],
             }
