@@ -1,0 +1,27 @@
+url: https://www.gnu.org/software/{version}/manual/
+versions:
+  bash:
+    last_checked: '2024-11-05'
+    last_update: '2022-09-26'
+    plain_text_link: https://www.gnu.org/software/bash/manual/bash.info.tar.gz
+    specific: bash
+  coreutils:
+    last_checked: '2024-11-05'
+    last_update: '2024-03-28'
+    plain_text_link: https://www.gnu.org/software/coreutils/manual/coreutils.info.tar.gz
+    specific: coreutils
+  gawk:
+    last_checked: '2024-11-05'
+    last_update: '2024-09-22'
+    plain_text_link: https://www.gnu.org/software/gawk/manual/gawk.info.tar.gz
+    specific: gawk
+  make:
+    last_checked: '2024-11-05'
+    last_update: '2023-02-26'
+    plain_text_link: https://www.gnu.org/software/make/manual/make.info.tar.gz
+    specific: make
+  sed:
+    last_checked: '2024-11-05'
+    last_update: '2020-01-14'
+    plain_text_link: https://www.gnu.org/software/sed/manual/sed.info.tar.gz
+    specific: sed
