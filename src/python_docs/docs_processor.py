@@ -1,7 +1,7 @@
 import json
 import os
 
-from config import DocsConfig, Section
+from src.python_docs.config import DocsConfig, Section
 
 
 def _extract_sections(file_path: str, config: DocsConfig) -> list[Section]:

@@ -4,18 +4,9 @@ from typing import Any, Optional
 import requests
 import yaml
 from bs4 import BeautifulSoup
-from config import DocsConfig, VersionMetadata
 
-
-def _parse_update_date(date_text: str) -> Optional[str]:
-    """Extract and parse the update date from docs page text"""
-
-    try:
-        date_str = date_text.split("on: ")[1].split(" (")[0].strip().rstrip(".")
-        return datetime.strptime(date_str, "%b %d, %Y").date().isoformat()
-    except Exception as e:
-        print(f"Failed to parse update date: {e}")
-        return None
+from src.python_docs.config import DocsConfig, VersionMetadata
+from src.utils import _parse_update_date
 
 
 def _is_version_outdated(last_update: datetime, update_threshold_days: int) -> bool:

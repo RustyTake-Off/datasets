@@ -4,7 +4,7 @@ from datetime import datetime
 from huggingface_hub import HfApi, list_repo_files, metadata_update
 from huggingface_hub.utils import GatedRepoError, RepositoryNotFoundError
 
-from utils import _get_huggingface_token
+from src.utils import _get_huggingface_token
 
 
 def _generate_configs(repo_id: str, token: str) -> list:
@@ -92,7 +92,25 @@ def _upload_metadata_to_hf(repo_id: str, token: str) -> None:
     )
 
 
-def metadata_updater() -> None:
+def metadata_updater(repo_id: str, token: str) -> None:
+    """
+    Generate and update HuggingFace metadata for dataset configs
+
+    Args:
+        repo_id (str): HuggingFace repository id (e.g. 'example-org/example-repo')
+        token (str): HuggingFace token with user write access to repositories and PRs
+    """
+
+    # Handle token retrieval
+    token = _get_huggingface_token(token)
+
+    _upload_metadata_to_hf(
+        repo_id=repo_id,
+        token=token,
+    )
+
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Generate and update HuggingFace metadata for dataset configs",
     )
@@ -108,13 +126,7 @@ def metadata_updater() -> None:
     )
     args = parser.parse_args()
 
-    # Handle token retrieval
-    token = _get_huggingface_token(args.token)
-    _upload_metadata_to_hf(
-        repo_id=args.repo_id,
-        token=token,
+    metadata_updater(
+        args.repo_id,
+        args.token,
     )
-
-
-if __name__ == "__main__":
-    metadata_updater()

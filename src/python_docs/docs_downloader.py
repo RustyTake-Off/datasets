@@ -1,8 +1,7 @@
 import os
 
-from config import DocsConfig
-
-from utils import _download_file, _extract_archive, _load_versions
+from src.python_docs.config import DocsConfig
+from src.utils import _download_file, _extract_archive, _load_versions
 
 
 def download_and_extract(config: DocsConfig) -> None:
@@ -13,6 +12,12 @@ def download_and_extract(config: DocsConfig) -> None:
     os.makedirs(config.extracted_path, exist_ok=True)
 
     for version_info in versions.values():
+        if version_info["skip"] >= config.max_retry_attempts:
+            print(
+                f"Skipping version {version_info['specific']}: maximum retries reached"
+            )
+            continue
+
         download_url = version_info["plain_text_link"]
         if not download_url:
             continue

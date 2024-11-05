@@ -1,5 +1,7 @@
 import os
 import tarfile
+from datetime import datetime
+from typing import Optional
 
 import requests
 import yaml
@@ -71,3 +73,29 @@ def _extract_archive(archive_path: str, extract_path: str) -> bool:
     except tarfile.TarError as e:
         print(f"Extraction failed for {archive_path}: {e}")
         return False
+
+
+def _parse_update_date(date_text: str) -> Optional[str]:
+    """Extract and parse the update date from docs page text in multiple formats"""
+
+    try:
+        # Check if the text contains "on: " format
+        if "last updated on: " in date_text.lower():
+            date_str = (
+                date_text.lower().split("on: ")[1].split(" (")[0].strip().rstrip(".")
+            )
+            return datetime.strptime(date_str, "%b %d, %Y").date().isoformat()
+
+        # Check if the text contains "Last updated" format
+        elif "last updated" in date_text.lower():
+            date_str = date_text.lower().replace("last updated", "").strip()
+            return datetime.strptime(date_str, "%B %d, %Y").date().isoformat()
+
+        # If neither format matches, return None
+        else:
+            print("Unrecognized date format.")
+            return None
+
+    except Exception as e:
+        print(f"Failed to parse update date: {e}")
+        return None

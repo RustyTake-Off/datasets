@@ -1,7 +1,7 @@
-from config import DocsConfig
-from docs_downloader import download_and_extract
-from docs_processor import process_documentation
-from version_updater import update_versions
+from src.gnu_docs.config import DocsConfig
+from src.gnu_docs.docs_downloader import download_and_extract
+from src.gnu_docs.docs_processor import process_documentation
+from src.gnu_docs.version_updater import update_versions
 
 
 def main():
@@ -16,7 +16,3 @@ def main():
 
     # Process docs files
     process_documentation(config)
-
-
-if __name__ == "__main__":
-    main()

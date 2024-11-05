@@ -6,7 +6,7 @@ from datetime import datetime
 from huggingface_hub import CommitOperationAdd, HfApi
 from huggingface_hub.utils import GatedRepoError, RepositoryNotFoundError
 
-from utils import _get_huggingface_token
+from src.utils import _get_huggingface_token
 
 
 def _upload_data_to_hf(lang: str, repo_id: str, token: str) -> None:
@@ -14,13 +14,13 @@ def _upload_data_to_hf(lang: str, repo_id: str, token: str) -> None:
     Upload data files from specified docs directory
 
     Args:
-        lang (str): Docs directory containing dataset files (e.g. 'python', 'javascript')
+        lang (str): Docs lang directory containing dataset files (e.g. 'python', 'javascript')
         repo_id (str): HuggingFace repository id (e.g. 'example-org/example-repo')
         token (str): HuggingFace token with user write access to repositories and PRs
     """
 
     base = os.curdir
-    lang = f"{lang}-docs"
+    lang = f"{lang}_docs"
     target_folder = os.path.join(base, lang, "data")
     path_in_repo = f"data/{lang}"
 
@@ -65,14 +65,34 @@ def _upload_data_to_hf(lang: str, repo_id: str, token: str) -> None:
     )
 
 
-def data_uploader() -> None:
+def data_uploader(lang: str, repo_id: str, token: str) -> None:
+    """
+    Upload docs data to HuggingFace
+
+    Args:
+        lang (str): Docs lang directory containing dataset files (e.g. 'python', 'javascript')
+        repo_id (str): HuggingFace repository id (e.g. 'example-org/example-repo')
+        token (str): HuggingFace token with user write access to repositories and PRs
+    """
+
+    # Handle token retrieval
+    token = _get_huggingface_token(token)
+
+    _upload_data_to_hf(
+        lang=lang,
+        repo_id=repo_id,
+        token=token,
+    )
+
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Upload docs data to HuggingFace Hub",
+        description="Upload docs data to HuggingFace",
     )
     parser.add_argument(
         "lang",
         type=str,
-        help="Docs directory containing dataset files (e.g., 'python', 'javascript')",
+        help="Docs lang directory containing dataset files (e.g. 'python', 'javascript')",
     )
     parser.add_argument(
         "repo_id",
@@ -82,18 +102,12 @@ def data_uploader() -> None:
     parser.add_argument(
         "--token",
         type=str,
-        help="HuggingFace token with user write access to repositories and prs",
+        help="HuggingFace token with user write access to repositories and PRs",
     )
     args = parser.parse_args()
 
-    # Handle token retrieval
-    token = _get_huggingface_token(args.token)
-    _upload_data_to_hf(
+    data_uploader(
         lang=args.lang,
         repo_id=args.repo_id,
-        token=token,
+        token=args.token,
     )
-
-
-if __name__ == "__main__":
-    data_uploader()
