@@ -47,7 +47,7 @@ def _generate_configs(repo_id: str, token: str) -> list:
                 "data_files": [
                     {
                         "split": "train",
-                        "path": f"data/{lang_docs}/{lang}-{version}.*",
+                        "path": f"data/{lang_docs}/{lang}-{version}.jsonl",
                     }
                 ],
             }
@@ -62,7 +62,7 @@ def _generate_configs(repo_id: str, token: str) -> list:
                 "data_files": [
                     {
                         "split": "train",
-                        "path": f"data/{lang_docs}/*",
+                        "path": f"data/{lang_docs}/*.jsonl",
                     }
                 ],
             }
